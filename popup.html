@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Star Notes</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 360px;
+      min-height: 200px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      background: #0d1117;
+      color: #e6edf3;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo {
+      width: 22px;
+      height: 22px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    h1 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e6edf3;
+    }
+
+    .count-badge {
+      font-size: 11px;
+      background: #21262d;
+      color: #8b949e;
+      padding: 2px 7px;
+      border-radius: 20px;
+      border: 1px solid #30363d;
+    }
+
+    /* Search */
+    .search-wrap {
+      padding: 10px 16px;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 7px 10px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      color: #e6edf3;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #388bfd;
+      box-shadow: 0 0 0 3px rgba(56,139,253,0.15);
+    }
+
+    .search-input::placeholder { color: #484f58; }
+
+    /* List */
+    .list {
+      max-height: 340px;
+      overflow-y: auto;
+    }
+
+    .list::-webkit-scrollbar { width: 4px; }
+    .list::-webkit-scrollbar-track { background: transparent; }
+    .list::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+    .item {
+      padding: 10px 16px;
+      border-bottom: 1px solid #21262d;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .item:hover { background: #161b22; }
+    .item:last-child { border-bottom: none; }
+
+    .item-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .item-repo {
+      font-weight: 600;
+      font-size: 13px;
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    .item-repo:hover { text-decoration: underline; }
+
+    .item-date {
+      font-size: 11px;
+      color: #484f58;
+    }
+
+    .item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .tag {
+      font-size: 11px;
+      background: #1f3d5c;
+      color: #79c0ff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .item-note {
+      font-size: 12px;
+      color: #8b949e;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Empty */
+    .empty {
+      padding: 40px 16px;
+      text-align: center;
+      color: #484f58;
+    }
+
+    .empty-icon { font-size: 32px; margin-bottom: 10px; }
+    .empty-text { font-size: 13px; line-height: 1.6; }
+
+    /* Footer */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-top: 1px solid #21262d;
+      background: #0d1117;
+    }
+
+    .footer-info {
+      font-size: 11px;
+      color: #484f58;
+    }
+
+    .export-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      color: #8b949e;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .export-btn:hover {
+      background: #2d333b;
+      color: #e6edf3;
+      border-color: #444c56;
+    }
+
+    .no-result {
+      padding: 30px 16px;
+      text-align: center;
+      color: #484f58;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">✦</div>
+      <h1>Star Notes</h1>
+    </div>
+    <span class="count-badge" id="count">0 条</span>
+  </div>
+
+  <div class="search-wrap">
+    <input class="search-input" id="searchInput" type="text" placeholder="搜索仓库名、标签或备注…" />
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <div class="footer">
+    <span class="footer-info">数据存储在本地</span>
+    <button class="export-btn" id="exportBtn">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/>
+        <path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.97a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.779a.749.749 0 1 1 1.06-1.06l1.97 1.97Z"/>
+      </svg>
+      导出 JSON
+    </button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

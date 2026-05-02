@@ -1,0 +1,272 @@
+/* ===== 注入按钮 ===== */
+.gsn-note-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-default, #d0d7de);
+  background: var(--color-canvas-subtle, #f6f8fa);
+  color: var(--color-fg-muted, #656d76);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  vertical-align: middle;
+  flex-shrink: 0;
+  margin-left: 6px;
+  padding: 0;
+}
+
+.gsn-note-btn:hover {
+  background: var(--color-canvas-default, #fff);
+  color: var(--color-accent-fg, #0969da);
+  border-color: var(--color-accent-emphasis, #0969da);
+}
+
+.gsn-note-btn.has-data {
+  color: #f59e0b;
+  border-color: #fbbf24;
+  background: #fffbeb;
+}
+
+/* ===== 列表页角标 ===== */
+.gsn-badge {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  font-size: 10px;
+  flex-shrink: 0;
+  position: relative;
+  vertical-align: middle;
+}
+
+/* Tooltip */
+.gsn-badge[data-gsn-tip]:hover::after {
+  content: attr(data-gsn-tip);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%);
+  background: #24292f;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 8px 10px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  max-width: 260px;
+  min-width: 120px;
+  z-index: 99999;
+  pointer-events: none;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.gsn-badge[data-gsn-tip]:hover::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 2px);
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: #24292f;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+/* ===== 面板 ===== */
+.gsn-panel {
+  position: absolute;
+  z-index: 99998;
+  width: 320px;
+  background: var(--color-canvas-overlay, #fff);
+  border: 1px solid var(--color-border-default, #d0d7de);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(140,149,159,0.2);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  overflow: hidden;
+}
+
+.gsn-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--color-canvas-subtle, #f6f8fa);
+  border-bottom: 1px solid var(--color-border-muted, #d0d7de);
+}
+
+.gsn-panel-repo {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-fg-muted, #656d76);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
+}
+
+.gsn-close-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-fg-muted, #656d76);
+  font-size: 14px;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.gsn-close-btn:hover {
+  background: var(--color-neutral-muted, #d0d7de);
+  color: var(--color-fg-default, #24292f);
+}
+
+.gsn-panel-body {
+  padding: 14px;
+}
+
+.gsn-field {
+  margin-bottom: 12px;
+}
+
+.gsn-field label {
+  display: block;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-fg-default, #24292f);
+  margin-bottom: 6px;
+}
+
+.gsn-hint {
+  font-weight: 400;
+  color: var(--color-fg-muted, #656d76);
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+/* 标签输入区 */
+.gsn-tags-input-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border-default, #d0d7de);
+  border-radius: 6px;
+  background: var(--color-canvas-default, #fff);
+  min-height: 36px;
+  cursor: text;
+}
+
+.gsn-tags-input-wrap:focus-within {
+  border-color: var(--color-accent-emphasis, #0969da);
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
+}
+
+.gsn-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #ddf4ff;
+  color: #0969da;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.gsn-tag button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #0969da;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.6;
+}
+
+.gsn-tag button:hover { opacity: 1; }
+
+.gsn-tag-input {
+  border: none;
+  outline: none;
+  font-size: 12px;
+  background: transparent;
+  min-width: 80px;
+  flex: 1;
+  color: var(--color-fg-default, #24292f);
+  padding: 2px 0;
+}
+
+/* 备注输入 */
+.gsn-note-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border-default, #d0d7de);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  background: var(--color-canvas-default, #fff);
+  color: var(--color-fg-default, #24292f);
+  line-height: 1.5;
+}
+
+.gsn-note-input:focus {
+  outline: none;
+  border-color: var(--color-accent-emphasis, #0969da);
+  box-shadow: 0 0 0 3px rgba(9,105,218,0.1);
+}
+
+/* 操作区 */
+.gsn-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gsn-save-btn {
+  padding: 6px 16px;
+  background: #2da44e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.gsn-save-btn:hover { background: #2c974b; }
+
+.gsn-saved-tip {
+  font-size: 12px;
+  color: #2da44e;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.gsn-saved-tip.visible { opacity: 1; }
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .gsn-tag {
+    background: #1f3d5c;
+    color: #79c0ff;
+  }
+  .gsn-tag button { color: #79c0ff; }
+  .gsn-badge[data-gsn-tip]:hover::after {
+    background: #161b22;
+    border: 1px solid #30363d;
+  }
+  .gsn-badge[data-gsn-tip]:hover::before {
+    border-bottom-color: #30363d;
+  }
+}

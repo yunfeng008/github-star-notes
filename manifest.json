@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub Star Notes",
+  "version": "1.0.0",
+  "description": "\u4e3a GitHub Star \u4ed3\u5e93\u6dfb\u52a0\u6807\u7b7e\u548c\u5907\u6ce8\uff0c\u6570\u636e\u5b8c\u5168\u672c\u5730\u5b58\u50a8",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://github.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "GitHub Star Notes",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
