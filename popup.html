@@ -193,6 +193,37 @@
       border-color: #444c56;
     }
 
+    .footer-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .item-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .item-del {
+      border: none;
+      background: none;
+      color: #484f58;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      padding: 2px 4px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .item:hover .item-del { opacity: 1; }
+
+    .item-del:hover {
+      color: #f85149;
+      background: #21262d;
+    }
+
     .no-result {
       padding: 30px 16px;
       text-align: center;
@@ -218,14 +249,24 @@
 
   <div class="footer">
     <span class="footer-info">数据存储在本地</span>
-    <button class="export-btn" id="exportBtn">
-      <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
-        <path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/>
-        <path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.97a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.779a.749.749 0 1 1 1.06-1.06l1.97 1.97Z"/>
-      </svg>
-      导出 JSON
-    </button>
+    <div class="footer-btns">
+      <button class="export-btn" id="importBtn">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/>
+          <path d="M7.25 8.311V14a.75.75 0 0 0 1.5 0V8.311l1.97 1.97a.749.749 0 1 0 1.06-1.06L8.53 5.971a.749.749 0 0 0-1.06 0L4.22 9.221a.749.749 0 1 0 1.06 1.06l1.97-1.97Z"/>
+        </svg>
+        导入 JSON
+      </button>
+      <button class="export-btn" id="exportBtn">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/>
+          <path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.97a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.779a.749.749 0 1 1 1.06-1.06l1.97 1.97Z"/>
+        </svg>
+        导出 JSON
+      </button>
+    </div>
   </div>
+  <input type="file" id="importFile" accept=".json,application/json" style="display: none" />
 
   <script src="popup.js"></script>
 </body>
