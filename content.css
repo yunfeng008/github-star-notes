@@ -245,6 +245,21 @@
 
 .gsn-save-btn:hover { background: #2c974b; }
 
+.gsn-delete-btn {
+  padding: 6px 12px;
+  background: none;
+  color: var(--color-danger-fg, #cf222e);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.gsn-delete-btn:hover {
+  background: var(--color-danger-subtle, #ffebe9);
+}
+
 .gsn-saved-tip {
   font-size: 12px;
   color: #2da44e;

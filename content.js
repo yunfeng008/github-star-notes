@@ -12,6 +12,12 @@ async function storageSet(key, value) {
   });
 }
 
+async function storageRemove(key) {
+  return new Promise(resolve => {
+    chrome.storage.local.remove(key, resolve);
+  });
+}
+
 async function storageGetAll() {
   return new Promise(resolve => {
     chrome.storage.local.get(null, data => resolve(data || {}));
@@ -64,6 +70,7 @@ function createPanel(repoKey, anchorEl) {
       </div>
       <div class="gsn-actions">
         <button class="gsn-save-btn">保存</button>
+        <button class="gsn-delete-btn" style="display: none">删除</button>
         <span class="gsn-saved-tip">已保存 ✓</span>
       </div>
     </div>
@@ -81,6 +88,7 @@ function createPanel(repoKey, anchorEl) {
     if (data) {
       currentTags = data.tags || [];
       panel.querySelector('.gsn-note-input').value = data.note || '';
+      panel.querySelector('.gsn-delete-btn').style.display = '';
       renderTags();
     }
   });
@@ -92,11 +100,14 @@ function createPanel(repoKey, anchorEl) {
     currentTags.forEach((tag, i) => {
       const span = document.createElement('span');
       span.className = 'gsn-tag';
-      span.innerHTML = `${tag}<button data-i="${i}">×</button>`;
-      span.querySelector('button').onclick = () => {
+      span.appendChild(document.createTextNode(tag));
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '×';
+      delBtn.onclick = () => {
         currentTags.splice(i, 1);
         renderTags();
       };
+      span.appendChild(delBtn);
       list.appendChild(span);
     });
   }
@@ -133,6 +144,15 @@ function createPanel(repoKey, anchorEl) {
     setTimeout(() => tip.classList.remove('visible'), 1500);
     // 刷新页面上的角标
     refreshBadge(repoKey, data);
+  };
+
+  // 删除
+  panel.querySelector('.gsn-delete-btn').onclick = async () => {
+    if (!confirm(`确定删除 ${repoKey} 的备注和标签？`)) return;
+    await storageRemove(repoKey);
+    closePanel();
+    refreshBadge(repoKey, null);
+    anchorEl.classList.remove('has-data');
   };
 
   // 关闭
